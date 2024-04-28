@@ -1,6 +1,6 @@
 package de.dhbw.swe.internal.grpc.services;
 
-import de.dhbw.swe.main.grpc.client.GrpcClient;
+import de.dhbw.swe.main.grpc.GrpcClient;
 import de.dhbw.swe.main.grpc.services.LinearRegressionService;
 import net.alphos.service.grpc.services.classifier.*;
 
@@ -13,11 +13,11 @@ public class DefaultLinearRegressionService implements LinearRegressionService {
 
   private static final Logger logger = Logger.getLogger(DefaultLinearRegressionService.class.getName());
 
-  private final LinearRegressionServiceGrpc.LinearClassifierServiceBlockingStub blockingStub;
+  private final LinearRegressionServiceGrpc.LinearRegressionServiceBlockingStub blockingStub;
 
   @Inject
   public DefaultLinearRegressionService(GrpcClient client) {
-    this.blockingStub = LinearClassifierServiceGrpc.newBlockingStub(client.channel());
+    this.blockingStub = LinearRegressionServiceGrpc.newBlockingStub(client.channel());
   }
 
   @Override
@@ -29,7 +29,7 @@ public class DefaultLinearRegressionService implements LinearRegressionService {
             .build();
     SetupLCResponse response;
     try {
-      response = blockingStub.setupLinearClassifier(request);
+      response = blockingStub.setupLinearRegression(request);
     } catch (Exception exception) {
       logger.log(Level.SEVERE, "Request failed: " + exception.getMessage());
       exception.printStackTrace();
@@ -50,7 +50,7 @@ public class DefaultLinearRegressionService implements LinearRegressionService {
 
     ErrorLCResponse response;
     try {
-      response = blockingStub.errorLinearClassifier(request);
+      response = blockingStub.errorLinearRegression(request);
     } catch (Exception exception) {
       logger.log(Level.SEVERE, "Request failed: " + exception.getMessage());
       return Double.NaN;
@@ -71,7 +71,7 @@ public class DefaultLinearRegressionService implements LinearRegressionService {
 
     PredictLCResponse response;
     try {
-      response = blockingStub.predictLinearClassifier(request);
+      response = blockingStub.predictLinearRegression(request);
     } catch (Exception exception) {
       logger.log(Level.SEVERE, "Request failed: " + exception.getMessage());
       return Double.NaN;
@@ -91,7 +91,7 @@ public class DefaultLinearRegressionService implements LinearRegressionService {
 
     DeleteLCResponse response;
     try {
-      response = blockingStub.deleteLinearClassifier(request);
+      response = blockingStub.deleteLinearRegression(request);
     } catch (Exception exception) {
       logger.log(Level.SEVERE, "Request failed: " + exception.getMessage());
       return;

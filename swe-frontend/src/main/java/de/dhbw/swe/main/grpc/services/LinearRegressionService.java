@@ -2,7 +2,7 @@ package de.dhbw.swe.main.grpc.services;
 
 import com.google.inject.assistedinject.Assisted;
 import de.dhbw.swe.internal.grpc.services.DefaultLinearRegressionService;
-import de.dhbw.swe.main.grpc.client.GrpcClient;
+import de.dhbw.swe.main.grpc.GrpcClient;
 
 import java.util.List;
 

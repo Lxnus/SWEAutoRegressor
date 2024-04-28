@@ -1,11 +1,11 @@
-package de.dhbw.swe.main.grpc.client;
+package de.dhbw.swe.main.grpc;
 
 import com.google.inject.ImplementedBy;
-import de.dhbw.swe.internal.grpc.client.GrpcClientImpl;
+import de.dhbw.swe.internal.grpc.DefaultGrpcClient;
 import io.grpc.ManagedChannel;
 import io.netty.handler.ssl.SslContext;
 
-@ImplementedBy(GrpcClientImpl.class)
+@ImplementedBy(DefaultGrpcClient.class)
 public interface GrpcClient {
 
   void start(SslContext sslContext);
@@ -16,7 +16,7 @@ public interface GrpcClient {
 
   class Factory {
     public static GrpcClient create() {
-      return new GrpcClientImpl();
+      return new DefaultGrpcClient();
     }
   }
 }
