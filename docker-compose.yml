@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: alphos
+      MYSQL_DATABASE: alphos
+      MYSQL_USER: alphos
+      MYSQL_PASSWORD: alphos
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
