@@ -89,6 +89,15 @@ public class DefaultSearchField implements SearchField {
 
     @Override
     public JComponent getSearchField() {
+        JPanel searchPanel = new JPanel();
+        searchPanel.setLayout(new BorderLayout());
+        searchPanel.add(this.createSearchComponentsPanel(), BorderLayout.CENTER);
+        searchPanel.add(this.createButtonPanel(), BorderLayout.SOUTH);
+
+        return searchPanel;
+    }
+
+    private JPanel createSearchComponentsPanel() {
         JPanel searchComponentsPanel = new JPanel();
         searchComponentsPanel.setLayout(new GridLayout(this.rows, (int) Math.ceil((double) this.getSearchComponents().size() / this.rows)));
         searchComponentsPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
@@ -99,38 +108,38 @@ public class DefaultSearchField implements SearchField {
             searchComponentsPanel.add(component);
         }
 
+        return searchComponentsPanel;
+    }
+
+    private JPanel createButtonPanel() {
         JPanel buttonPanel = new JPanel();
         JButton searchButton = new JButton("Suchen");
-        searchButton.addActionListener(e -> {
-            HashMap<String, Double> searchValues = new HashMap<>();
-            for (Component component : searchComponents.values()) {
-                double value;
-                try {
-                    value = Double.parseDouble(component.getInputField().getValue().toString());
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Bitte geben Sie nur Zahlen ein.");
-                    return;
-                }
-                searchValues.put(component.getComponentName(), value);
-            }
-            List<Double> representationValues = sampler.sample(searchValues,10);
-            List<Double> yValues = sampler.sample(searchValues, 10);
-            long uuid = new Random().nextLong();
-
-            double meanRepresentationValue = representationValues.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
-
-            linearRegressionService.create(uuid, representationValues, yValues);
-            double prediction = linearRegressionService.predict(meanRepresentationValue, uuid);
-            JOptionPane.showMessageDialog(null, "Vorhersage: " + Math.round(prediction) + " Euro", "Vorhersage", JOptionPane.INFORMATION_MESSAGE);
-            linearRegressionService.delete(uuid);
-        });
+        searchButton.addActionListener(this::actionPerformed);
         buttonPanel.add(searchButton);
 
-        JPanel searchPanel = new JPanel();
-        searchPanel.setLayout(new BorderLayout());
-        searchPanel.add(searchComponentsPanel, BorderLayout.CENTER);
-        searchPanel.add(buttonPanel, BorderLayout.SOUTH);
+        return buttonPanel;
+    }
 
-        return searchPanel;
+    public void actionPerformed(ActionEvent e) {
+        HashMap<String, Double> searchValues = new HashMap<>();
+        for (Component component : searchComponents.values()) {
+            double value;
+            try {
+                value = Double.parseDouble(component.getInputField().getValue().toString());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Bitte geben Sie nur Zahlen ein.");
+                return;
+            }
+            searchValues.put(component.getComponentName(), value);
+        }
+        List<Double> representationValues = sampler.sample(searchValues,10);
+        List<Double> yValues = sampler.sample(searchValues, 10);
+        long uuid = new Random().nextLong();
+
+        double meanRepresentationValue = representationValues.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+
+        linearRegressionService.create(uuid, representationValues, yValues);
+        double prediction = linearRegressionService.predict(meanRepresentationValue, uuid);
+        JOptionPane.showMessageDialog(null, "Vorhersage: " + Math.round(prediction) + " Euro", "Vorhersage", JOptionPane.INFORMATION_MESSAGE);
     }
 }
