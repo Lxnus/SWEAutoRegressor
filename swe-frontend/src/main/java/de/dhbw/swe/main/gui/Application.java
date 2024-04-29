@@ -1,12 +1,11 @@
 package de.dhbw.swe.main.gui;
 
-import com.google.inject.ImplementedBy;
 import com.google.inject.assistedinject.Assisted;
-import de.dhbw.swe.internal.gui.DefaultApplication;
+import de.dhbw.swe.main.inject.AssistedFactory;
 
 import javax.swing.*;
 
-@ImplementedBy(DefaultApplication.class)
+@AssistedFactory(Application.Factory.class)
 public interface Application {
 
     void start();

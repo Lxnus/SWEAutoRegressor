@@ -1,7 +1,9 @@
 package de.dhbw.swe.main.sampler;
 
 import com.google.inject.assistedinject.Assisted;
+import de.dhbw.swe.main.inject.AssistedFactory;
 
+@AssistedFactory(SamplingInterval.Factory.class)
 public interface SamplingInterval {
 
     int getMinInterval();

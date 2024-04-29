@@ -1,11 +1,12 @@
 package de.dhbw.swe.main.grpc.services;
 
 import com.google.inject.assistedinject.Assisted;
-import de.dhbw.swe.internal.grpc.services.DefaultLinearRegressionService;
 import de.dhbw.swe.main.grpc.GrpcClient;
+import de.dhbw.swe.main.inject.AssistedFactory;
 
 import java.util.List;
 
+@AssistedFactory(LinearRegressionService.Factory.class)
 public interface LinearRegressionService {
 
   /**
@@ -47,9 +48,7 @@ public interface LinearRegressionService {
    */
   void delete(long classifierId);
 
-  class Factory {
-    public static LinearRegressionService create(GrpcClient grpcClient) {
-      return new DefaultLinearRegressionService(grpcClient);
-    }
+  interface Factory {
+    LinearRegressionService create(@Assisted("grpcClient") GrpcClient grpcClient);
   }
 }

@@ -1,11 +1,10 @@
 package de.dhbw.swe.main.grpc;
 
-import com.google.inject.ImplementedBy;
 import com.google.inject.assistedinject.Assisted;
-import de.dhbw.swe.internal.grpc.DefaultGrpcServer;
+import de.dhbw.swe.main.inject.AssistedFactory;
 import io.grpc.BindableService;
 
-@ImplementedBy(DefaultGrpcServer.class)
+@AssistedFactory(GrpcServer.Factory.class)
 public interface GrpcServer {
 
   void stop();

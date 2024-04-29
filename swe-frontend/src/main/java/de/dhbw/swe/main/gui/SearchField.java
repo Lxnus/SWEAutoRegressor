@@ -1,14 +1,13 @@
 package de.dhbw.swe.main.gui;
 
-import com.google.inject.ImplementedBy;
 import com.google.inject.assistedinject.Assisted;
-import de.dhbw.swe.internal.gui.DefaultSearchField;
 import de.dhbw.swe.main.grpc.GrpcClient;
+import de.dhbw.swe.main.inject.AssistedFactory;
 
 import javax.swing.*;
 import java.util.HashMap;
 
-@ImplementedBy(DefaultSearchField.class)
+@AssistedFactory(SearchField.Factory.class)
 public interface SearchField {
 
     HashMap<String, Component> getSearchComponents();
