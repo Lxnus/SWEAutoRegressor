@@ -2,7 +2,6 @@ package de.dhbw.swe.runtime.gui;
 
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
-import com.google.inject.assistedinject.AssistedInject;
 import de.dhbw.swe.main.grpc.GrpcClient;
 import de.dhbw.swe.main.grpc.services.LinearRegressionService;
 import de.dhbw.swe.main.gui.Component;
@@ -14,6 +13,7 @@ import de.dhbw.swe.runtime.inject.AutoBind;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
