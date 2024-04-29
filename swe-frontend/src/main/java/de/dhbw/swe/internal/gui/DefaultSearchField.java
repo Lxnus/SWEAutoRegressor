@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 public class DefaultSearchField implements SearchField {
@@ -111,7 +112,7 @@ public class DefaultSearchField implements SearchField {
             }
             List<Double> representationValues = sampler.sample(searchValues,10);
             List<Double> yValues = sampler.sample(searchValues, 10);
-            long uuid = UUID.randomUUID().getMostSignificantBits();
+            long uuid = new Random().nextLong();
 
             double meanRepresentationValue = representationValues.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
 
