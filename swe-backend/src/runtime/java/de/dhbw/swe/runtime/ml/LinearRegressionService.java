@@ -1,8 +1,7 @@
 package de.dhbw.swe.runtime.ml;
 
-import de.dhbw.swe.implementation.database.SyncRepository;
-import de.dhbw.swe.implementation.database.entities.Statistic;
-import de.dhbw.swe.implementation.ml.LinearRegression;
+import de.dhbw.swe.main.database.SyncRepository;
+import de.dhbw.swe.main.statistic.Statistic;
 import de.dhbw.swe.main.database.Database;
 import de.dhbw.swe.main.statistic.StatisticService;
 import de.dhbw.swe.runtime.ml.regression.*;

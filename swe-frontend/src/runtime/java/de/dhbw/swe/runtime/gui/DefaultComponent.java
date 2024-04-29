@@ -1,4 +1,4 @@
-package de.dhbw.swe.internal.gui;
+package de.dhbw.swe.runtime.gui;
 
 import com.google.inject.assistedinject.Assisted;
 import de.dhbw.swe.main.gui.Component;

@@ -1,4 +1,4 @@
-package de.dhbw.swe.internal.grpc.services;
+package de.dhbw.swe.runtime.grpc.services;
 
 import com.google.inject.assistedinject.Assisted;
 import de.dhbw.swe.main.grpc.GrpcClient;

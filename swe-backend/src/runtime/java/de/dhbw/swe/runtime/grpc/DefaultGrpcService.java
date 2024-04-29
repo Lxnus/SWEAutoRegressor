@@ -1,6 +1,7 @@
 package de.dhbw.swe.runtime.grpc;
 
-import de.dhbw.swe.implementation.grpc.services.LinearRegressionService;
+import de.dhbw.swe.main.grpc.GrpcConfiguration;
+import de.dhbw.swe.runtime.ml.LinearRegressionService;
 import de.dhbw.swe.main.grpc.GrpcServer;
 import de.dhbw.swe.main.grpc.GrpcService;
 import de.dhbw.swe.runtime.inject.AutoBind;

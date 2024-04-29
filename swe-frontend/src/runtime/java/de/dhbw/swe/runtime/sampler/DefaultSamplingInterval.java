@@ -1,4 +1,4 @@
-package de.dhbw.swe.internal.sampler;
+package de.dhbw.swe.runtime.sampler;
 
 import com.google.inject.assistedinject.Assisted;
 import de.dhbw.swe.main.sampler.SamplingInterval;

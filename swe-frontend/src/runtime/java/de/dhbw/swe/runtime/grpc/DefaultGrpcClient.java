@@ -1,4 +1,4 @@
-package de.dhbw.swe.internal.grpc;
+package de.dhbw.swe.runtime.grpc;
 
 import de.dhbw.swe.main.grpc.GrpcClient;
 import de.dhbw.swe.runtime.inject.AutoBind;

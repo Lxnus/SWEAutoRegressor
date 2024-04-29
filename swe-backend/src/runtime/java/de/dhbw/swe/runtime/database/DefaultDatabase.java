@@ -2,7 +2,8 @@ package de.dhbw.swe.runtime.database;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import de.dhbw.swe.implementation.database.SyncRepository;
+import de.dhbw.swe.main.database.DatabaseConfiguration;
+import de.dhbw.swe.main.database.SyncRepository;
 import de.dhbw.swe.main.database.Database;
 import de.dhbw.swe.runtime.inject.AutoBind;
 import org.hibernate.SessionFactory;
