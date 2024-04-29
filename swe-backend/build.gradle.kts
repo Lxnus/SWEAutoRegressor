@@ -27,6 +27,9 @@ sourceSets {
             api("javax.annotation", "javax.annotation-api", "1.2-b01")
             api("mysql", "mysql-connector-java", "8.0.23")
             api("io.netty", "netty-tcnative-boringssl-static", "2.0.26.Final")
+
+            testImplementation("org.junit.jupiter", "junit-jupiter-api", "5.7.1")
+            testImplementation("org.mockito", "mockito-core", "3.9.0")
         }
     }
 
@@ -47,6 +50,9 @@ sourceSets {
     }
 }
 
+tasks.test {
+    useJUnit()
+}
 
 protobuf {
     protoc {
