@@ -3,8 +3,10 @@ package de.dhbw.swe.main.sampler;
 import com.google.inject.ImplementedBy;
 import de.dhbw.swe.internal.sampler.DefaultSampler;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 @ImplementedBy(DefaultSampler.class)
 public interface Sampler {
@@ -15,7 +17,9 @@ public interface Sampler {
 
     void removeCategory(String category);
 
+    void clearCategories();
+
     void updateCategory(String category, SamplingConfiguration samplingConfiguration);
 
-    double[] sample(HashMap<String, Double> samplingData, int samplingSize);
+    List<Double> sample(HashMap<String, Double> samplingData, int samplingSize);
 }

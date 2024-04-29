@@ -15,7 +15,7 @@ public interface Component {
 
     JComponent getComponent();
 
-    JComponent getInputField();
+    JSpinner getInputField();
 
     interface Factory {
         Component create(@Assisted("name") String name, @Assisted("unit") String unit);

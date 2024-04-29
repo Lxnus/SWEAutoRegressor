@@ -48,8 +48,8 @@ public interface LinearRegressionService {
   void delete(long classifierId);
 
   class Factory {
-    public static LinearRegressionService create(@Assisted("client") GrpcClient client) {
-      return new DefaultLinearRegressionService(client);
+    public static LinearRegressionService create(GrpcClient grpcClient) {
+      return new DefaultLinearRegressionService(grpcClient);
     }
   }
 }

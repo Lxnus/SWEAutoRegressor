@@ -47,7 +47,7 @@ public class DefaultComponent extends JPanel implements Component {
     }
 
     @Override
-    public JComponent getInputField() {
+    public JSpinner getInputField() {
         return this.inputField;
     }
 }

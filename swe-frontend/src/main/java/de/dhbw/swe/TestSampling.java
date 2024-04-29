@@ -8,6 +8,7 @@ import de.dhbw.swe.main.sampler.SamplingConfiguration;
 import de.dhbw.swe.main.sampler.SamplingInterval;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class TestSampling {
 
@@ -26,7 +27,7 @@ public class TestSampling {
         SamplingConfiguration sampConfig = sampFactory.create(interval);
 
         sampler.addCategory("test", sampConfig);
-        double[] sample = sampler.sample(samplingData, 10);
+        List<Double> sample = sampler.sample(samplingData, 10);
         for (double value : sample) {
             System.out.println(value);
         }

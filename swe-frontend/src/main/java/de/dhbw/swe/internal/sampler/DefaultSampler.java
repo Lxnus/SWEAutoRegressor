@@ -3,8 +3,10 @@ package de.dhbw.swe.internal.sampler;
 import de.dhbw.swe.main.sampler.Sampler;
 import de.dhbw.swe.main.sampler.SamplingConfiguration;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class DefaultSampler implements Sampler {
@@ -31,12 +33,17 @@ public class DefaultSampler implements Sampler {
     }
 
     @Override
+    public void clearCategories() {
+        samplingConfigurations.clear();
+    }
+
+    @Override
     public void updateCategory(String category, SamplingConfiguration samplingConfiguration) {
         samplingConfigurations.put(category, samplingConfiguration);
     }
 
     @Override
-    public double[] sample(HashMap<String, Double> samplingData, int samplingSize) {
+    public List<Double> sample(HashMap<String, Double> samplingData, int samplingSize) {
         LinkedList<Double> scores = new LinkedList<>();
         for (String category : samplingData.keySet()) {
             if (!samplingConfigurations.containsKey(category)) {
@@ -53,9 +60,10 @@ public class DefaultSampler implements Sampler {
         }
         double avg = scores.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
 
-        double[] samples = new double[samplingSize];
+        List<Double> samples = new LinkedList<>();
         for (int i = 0; i < samplingSize; i++) {
-            samples[i] = Math.abs((new Random().nextGaussian() * 100000) * avg);
+            double value = Math.abs((new Random().nextGaussian() * 150000) * avg);
+            samples.add(value);
         }
         return samples;
     }
