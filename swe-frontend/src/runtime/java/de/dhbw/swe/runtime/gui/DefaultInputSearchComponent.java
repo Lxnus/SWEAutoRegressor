@@ -1,14 +1,14 @@
 package de.dhbw.swe.runtime.gui;
 
 import com.google.inject.assistedinject.Assisted;
-import de.dhbw.swe.main.gui.Component;
+import de.dhbw.swe.main.gui.InputSearchComponent;
 import de.dhbw.swe.runtime.inject.AutoBind;
 
 import javax.inject.Inject;
 import javax.swing.*;
 
-@AutoBind(Component.class)
-public class DefaultComponent extends JPanel implements Component {
+@AutoBind(InputSearchComponent.class)
+public class DefaultInputSearchComponent extends JPanel implements InputSearchComponent {
 
     private final String name;
     private final String unit;
@@ -16,7 +16,7 @@ public class DefaultComponent extends JPanel implements Component {
     private final JSpinner inputField;
 
     @Inject
-    public DefaultComponent(@Assisted("name") String name, @Assisted("unit") String unit) {
+    public DefaultInputSearchComponent(@Assisted("name") String name, @Assisted("unit") String unit) {
         this.name = name;
         this.unit = unit;
         this.inputField = new JSpinner();

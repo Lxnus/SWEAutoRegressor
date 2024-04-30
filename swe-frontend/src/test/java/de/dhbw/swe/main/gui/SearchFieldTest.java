@@ -18,20 +18,20 @@ public class SearchFieldTest {
     }
 
     @Test
-    public void testGetSearchComponents() {
+    public void testGetInputSearchComponents() {
         searchField.getSearchComponents();
         Mockito.verify(searchField).getSearchComponents();
     }
 
     @Test
-    public void testAddSearchComponent() {
-        searchField.addSearchComponent("ComponentName", "ComponentUnit", 0, 10);
+    public void testAddInputSearchComponent() {
+        searchField.addInputSearchComponent("ComponentName", "ComponentUnit", 0, 10);
 
-        assert searchField.getSearchComponent("ComponentName") != null;
-        assert searchField.getSearchComponent("ComponentName").getComponentUnit().equalsIgnoreCase("ComponentUnit");
-        assert searchField.getSearchComponent("ComponentName").getComponentName().equalsIgnoreCase("ComponentName");
+        assert searchField.getInputSearchComponent("ComponentName") != null;
+        assert searchField.getInputSearchComponent("ComponentName").getComponentUnit().equalsIgnoreCase("ComponentUnit");
+        assert searchField.getInputSearchComponent("ComponentName").getComponentName().equalsIgnoreCase("ComponentName");
 
-        Mockito.verify(searchField).addSearchComponent("ComponentName", "ComponentUnit", 0, 10);
+        Mockito.verify(searchField).addInputSearchComponent("ComponentName", "ComponentUnit", 0, 10);
     }
 
 }

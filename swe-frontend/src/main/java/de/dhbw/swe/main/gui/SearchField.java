@@ -10,15 +10,15 @@ import java.util.HashMap;
 @AssistedFactory(SearchField.Factory.class)
 public interface SearchField {
 
-    HashMap<String, Component> getSearchComponents();
+    HashMap<String, InputSearchComponent> getSearchComponents();
 
-    void addSearchComponent(String componentName, String componentUnit, int minInterval, int maxInterval);
+    void addInputSearchComponent(String componentName, String componentUnit, int minInterval, int maxInterval);
 
-    void removeSearchComponent(String componentName);
+    void removeInputSearchComponent(String componentName);
 
-    void clearSearchComponents();
+    void clearInputSearchComponents();
 
-    Component getSearchComponent(String name);
+    InputSearchComponent getInputSearchComponent(String name);
 
     JComponent getSearchField();
 
