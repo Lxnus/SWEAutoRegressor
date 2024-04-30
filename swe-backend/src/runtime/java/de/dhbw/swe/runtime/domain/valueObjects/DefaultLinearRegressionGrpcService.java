@@ -8,7 +8,6 @@ import de.dhbw.swe.runtime.ml.regression.*;
 import io.grpc.stub.StreamObserver;
 import org.hibernate.SessionFactory;
 
-import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.List;
 

@@ -48,6 +48,30 @@ sourceSets {
             implementation("org.reflections:reflections:0.10.2")
         }
     }
+
+    test {
+        val main = sourceSets.getByName("main")
+        compileClasspath += main.output
+        runtimeClasspath += main.output
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+
+        val runtime = sourceSets.getByName("runtime")
+        compileClasspath += runtime.output
+        runtimeClasspath += runtime.output
+        compileClasspath += runtime.compileClasspath
+        runtimeClasspath += runtime.runtimeClasspath
+
+        proto {
+            srcDirs("src/test/protobuf")
+        }
+
+        dependencies {
+            implementation("org.reflections:reflections:0.10.2")
+            testImplementation("org.junit.jupiter", "junit-jupiter-engine", "5.7.1")
+            testImplementation("org.mockito", "mockito-junit-jupiter", "3.9.0")
+        }
+    }
 }
 
 tasks.test {
