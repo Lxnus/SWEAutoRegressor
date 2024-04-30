@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import de.dhbw.swe.main.grpc.GrpcClient;
 import de.dhbw.swe.main.grpc.services.LinearRegressionService;
-import de.dhbw.swe.main.gui.Component;
+import de.dhbw.swe.main.gui.InputSearchComponent;
 import de.dhbw.swe.main.gui.SearchField;
 import de.dhbw.swe.main.sampler.Sampler;
 import de.dhbw.swe.main.sampler.SamplingConfiguration;
@@ -24,18 +24,18 @@ public class DefaultSearchField implements SearchField {
     private final int rows;
 
     private final Sampler sampler;
-    private final Component.Factory componentFactory;
+    private final InputSearchComponent.Factory componentFactory;
     private final SamplingInterval.Factory samplingIntervalFactory;
     private final SamplingConfiguration.Factory samplingConfigurationFactory;
     private final LinearRegressionService linearRegressionService;
 
-    private final HashMap<String, Component> searchComponents;
+    private final HashMap<String, InputSearchComponent> searchComponents;
 
     @Inject
     public DefaultSearchField(
             @Assisted("grpcClient") GrpcClient grpcClient,
             Sampler sampler,
-            Component.Factory componentFactory,
+            InputSearchComponent.Factory componentFactory,
             SamplingInterval.Factory samplingIntervalFactory,
             SamplingConfiguration.Factory samplingConfigurationFactory,
             LinearRegressionService.Factory linearRegressionServiceFactory
@@ -52,14 +52,14 @@ public class DefaultSearchField implements SearchField {
     }
 
     @Override
-    public HashMap<String, Component> getSearchComponents() {
+    public HashMap<String, InputSearchComponent> getSearchComponents() {
         return this.searchComponents;
     }
 
     @Override
-    public void addSearchComponent(String componentName, String componentUnit, int minInterval, int maxInterval) {
-        Component component = this.componentFactory.create(componentName, componentUnit);
-        this.searchComponents.put(componentName, component);
+    public void addInputSearchComponent(String componentName, String componentUnit, int minInterval, int maxInterval) {
+        InputSearchComponent inputSearchComponent = this.componentFactory.create(componentName, componentUnit);
+        this.searchComponents.put(componentName, inputSearchComponent);
 
         SamplingInterval samplingInterval = this.samplingIntervalFactory.create(minInterval, maxInterval);
         SamplingConfiguration samplingConfiguration = this.samplingConfigurationFactory.create(samplingInterval);
@@ -67,14 +67,14 @@ public class DefaultSearchField implements SearchField {
     }
 
     @Override
-    public void removeSearchComponent(String componentName) {
+    public void removeInputSearchComponent(String componentName) {
         this.searchComponents.remove(componentName);
 
         this.sampler.removeCategory(componentName);
     }
 
     @Override
-    public Component getSearchComponent(String name) {
+    public InputSearchComponent getInputSearchComponent(String name) {
         if (!this.searchComponents.containsKey(name)) {
             return null;
         }
@@ -82,7 +82,7 @@ public class DefaultSearchField implements SearchField {
     }
 
     @Override
-    public void clearSearchComponents() {
+    public void clearInputSearchComponents() {
         this.searchComponents.clear();
         this.sampler.clearCategories();
     }
@@ -102,8 +102,8 @@ public class DefaultSearchField implements SearchField {
         searchComponentsPanel.setLayout(new GridLayout(this.rows, (int) Math.ceil((double) this.getSearchComponents().size() / this.rows)));
         searchComponentsPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 
-        for (Component searchComponent : this.searchComponents.values()) {
-            JComponent component = searchComponent.getComponent();
+        for (InputSearchComponent searchInputSearchComponent : this.searchComponents.values()) {
+            JComponent component = searchInputSearchComponent.getComponent();
             component.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 30));
             searchComponentsPanel.add(component);
         }
@@ -122,15 +122,15 @@ public class DefaultSearchField implements SearchField {
 
     public void actionPerformed(ActionEvent e) {
         HashMap<String, Double> searchValues = new HashMap<>();
-        for (Component component : searchComponents.values()) {
+        for (InputSearchComponent inputSearchComponent : searchComponents.values()) {
             double value;
             try {
-                value = Double.parseDouble(component.getInputField().getValue().toString());
+                value = Double.parseDouble(inputSearchComponent.getInputField().getValue().toString());
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Bitte geben Sie nur Zahlen ein.");
                 return;
             }
-            searchValues.put(component.getComponentName(), value);
+            searchValues.put(inputSearchComponent.getComponentName(), value);
         }
         List<Double> representationValues = sampler.sample(searchValues,10);
         List<Double> yValues = sampler.sample(searchValues, 10);

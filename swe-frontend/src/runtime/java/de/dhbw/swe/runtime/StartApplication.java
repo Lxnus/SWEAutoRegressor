@@ -13,9 +13,9 @@ public class StartApplication {
         Application.Factory applicationFactory = injector.getInstance(Application.Factory.class);
         Application application = applicationFactory.create("SWE - Software Engineering", 800, 600);
 
-        application.getSearchField().addSearchComponent("Kilometerstand", "km", 0, 500000);
-        application.getSearchField().addSearchComponent("Baujahr", "", 1950, 2024);
-        application.getSearchField().addSearchComponent("Leistung", "PS", 10, 1500);
+        application.getSearchField().addInputSearchComponent("Kilometerstand", "km", 0, 500000);
+        application.getSearchField().addInputSearchComponent("Baujahr", "", 1950, 2024);
+        application.getSearchField().addInputSearchComponent("Leistung", "PS", 10, 1500);
 
         application.start();
     }

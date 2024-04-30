@@ -5,8 +5,8 @@ import de.dhbw.swe.main.inject.AssistedFactory;
 
 import javax.swing.*;
 
-@AssistedFactory(Component.Factory.class)
-public interface Component {
+@AssistedFactory(InputSearchComponent.Factory.class)
+public interface InputSearchComponent {
 
     String getComponentName();
 
@@ -17,6 +17,6 @@ public interface Component {
     JSpinner getInputField();
 
     interface Factory {
-        Component create(@Assisted("name") String name, @Assisted("unit") String unit);
+        InputSearchComponent create(@Assisted("name") String name, @Assisted("unit") String unit);
     }
 }
