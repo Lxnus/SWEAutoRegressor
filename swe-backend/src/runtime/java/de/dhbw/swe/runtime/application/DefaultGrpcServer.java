@@ -95,6 +95,11 @@ public class DefaultGrpcServer implements GrpcServer {
   }
 
   @Override
+  public Server getServer() {
+    return this.server;
+  }
+
+  @Override
   public void bindService(GrpcService grpcServiceRepository) {
     this.grpcGrpcServiceRepository.add(grpcServiceRepository);
   }

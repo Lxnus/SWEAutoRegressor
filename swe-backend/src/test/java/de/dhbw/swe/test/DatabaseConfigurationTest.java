@@ -19,10 +19,27 @@ public class DatabaseConfigurationTest {
     }
 
     @Test
-    public void testDatabase() {
+    public void testDatabaseInjection() {
+        Assert.assertNotNull(configuration);
+    }
+
+    @Test
+    public void testDatabaseUser() {
         Assert.assertEquals(configuration.getDatabaseUser(), "dummy");
+    }
+
+    @Test
+    public void testDatabasePassword() {
         Assert.assertEquals(configuration.getDatabasePassword(), "dummy");
+    }
+
+    @Test
+    public void testDatabaseUrl() {
         Assert.assertEquals(configuration.getDatabaseUrl(), "jdbc:postgresql://localhost:5432/dummy");
+    }
+
+    @Test
+    public void testDatabaseDriver() {
         Assert.assertEquals(configuration.getDatabaseDriver(), "org.postgresql.Driver");
     }
 }

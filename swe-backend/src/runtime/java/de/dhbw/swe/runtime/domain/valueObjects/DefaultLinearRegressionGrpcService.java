@@ -30,6 +30,11 @@ public class DefaultLinearRegressionGrpcService extends LinearRegressionServiceG
   }
 
   @Override
+  public SessionFactory getSessionFactory() {
+    return sessionFactory;
+  }
+
+  @Override
   public void setupLinearRegression(SetupLCRequest request, StreamObserver<SetupLCResponse> responseObserver) {
     long classifierId = request.getClassifierId();
     Double[] x = request.getXList().toArray(new Double[0]);

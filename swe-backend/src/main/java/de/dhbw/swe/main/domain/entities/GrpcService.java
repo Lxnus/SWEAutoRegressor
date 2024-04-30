@@ -5,4 +5,6 @@ import org.hibernate.SessionFactory;
 public interface GrpcService {
 
     void setSessionFactory(SessionFactory sessionFactory);
+
+    SessionFactory getSessionFactory();
 }
