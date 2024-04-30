@@ -1,10 +1,9 @@
-package de.dhbw.swe.runtime.database;
+package de.dhbw.swe.runtime.application;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import de.dhbw.swe.main.database.DatabaseConfiguration;
-import de.dhbw.swe.main.database.SyncRepository;
-import de.dhbw.swe.main.database.Database;
+import de.dhbw.swe.main.domain.valueObjects.configuration.DatabaseConfiguration;
+import de.dhbw.swe.main.application.Database;
 import de.dhbw.swe.runtime.inject.AutoBind;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -31,7 +30,7 @@ public class DefaultDatabase implements Database {
   }
 
   @Override
-  public void init(Class<?>... classes) {
+  public void init(Class<?>... entities) {
     StandardServiceRegistryBuilder registryBuilder = new StandardServiceRegistryBuilder();
 
     Map<String, Object> settings = new HashMap<>();
@@ -52,16 +51,16 @@ public class DefaultDatabase implements Database {
     StandardServiceRegistry registry = registryBuilder.build();
     MetadataSources metaDataSources = new MetadataSources(registry);
 
-    Arrays.stream(classes).forEach(metaDataSources::addAnnotatedClass);
+    Arrays.stream(entities).forEach(metaDataSources::addAnnotatedClass);
 
     Metadata metaData = metaDataSources.getMetadataBuilder().build();
 
-    sessionFactory = metaData.getSessionFactoryBuilder().build();
+    this.sessionFactory = metaData.getSessionFactoryBuilder().build();
   }
 
   @Override
-  public <T> SyncRepository<T> createRepository(Class<T> clazz) {
-    return new SyncRepository<>(sessionFactory);
+  public SessionFactory getSession() {
+    return this.sessionFactory;
   }
 
   @Override

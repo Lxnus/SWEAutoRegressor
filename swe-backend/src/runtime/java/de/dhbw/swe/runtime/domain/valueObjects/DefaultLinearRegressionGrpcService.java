@@ -1,34 +1,33 @@
-package de.dhbw.swe.runtime.ml;
+package de.dhbw.swe.runtime.domain.valueObjects;
 
-import de.dhbw.swe.main.database.SyncRepository;
-import de.dhbw.swe.main.statistic.Statistic;
-import de.dhbw.swe.main.database.Database;
-import de.dhbw.swe.main.statistic.StatisticService;
+import de.dhbw.swe.main.domain.entities.SyncRepository;
+import de.dhbw.swe.main.domain.valueObjects.services.LinearRegressionGrpcService;
+import de.dhbw.swe.runtime.adapters.LinearRegression;
+import de.dhbw.swe.runtime.inject.AutoBind;
 import de.dhbw.swe.runtime.ml.regression.*;
 import io.grpc.stub.StreamObserver;
+import org.hibernate.SessionFactory;
 
 import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.List;
 
-public class LinearRegressionService extends LinearRegressionServiceGrpc.LinearRegressionServiceImplBase {
+@AutoBind(LinearRegressionGrpcService.class)
+public class DefaultLinearRegressionGrpcService extends LinearRegressionServiceGrpc.LinearRegressionServiceImplBase implements LinearRegressionGrpcService {
 
-  private final StatisticService statisticService;
-  private final SyncRepository<LinearRegression> repository;
-  private final HashMap<Long, LinearRegression> classifierMap = new HashMap<>();
+  private SessionFactory sessionFactory;
 
-  @Inject
-  public LinearRegressionService(Database database,
-                                 StatisticService statisticService) {
-    this.statisticService = statisticService;
-    repository = database.createRepository(LinearRegression.class);
+  private SyncRepository<LinearRegression> regressionRepository;
 
-    System.out.print("Loading linear classifiers... ");
-    List<LinearRegression> classifierList = repository.load(LinearRegression.class);
-    System.out.println("done.");
-    System.out.println("Setup [" + classifierList.size() + "] linear classifiers... ");
-    classifierList.forEach(LinearRegression -> classifierMap.put(LinearRegression.getClassifierId(), LinearRegression));
-    System.out.println("done.");
+  private HashMap<Long, LinearRegression> classifierMap = new HashMap<>();
+
+  @Override
+  public void setSessionFactory(SessionFactory sessionFactory) {
+    this.sessionFactory = sessionFactory;
+    this.regressionRepository = new SyncRepository<LinearRegression>(this.sessionFactory);
+
+    List<LinearRegression> classifierList = this.regressionRepository.load(LinearRegression.class);
+    classifierList.forEach(linearRegression -> classifierMap.put(linearRegression.getClassifierId(), linearRegression));
   }
 
   @Override
@@ -36,7 +35,7 @@ public class LinearRegressionService extends LinearRegressionServiceGrpc.LinearR
     long classifierId = request.getClassifierId();
     Double[] x = request.getXList().toArray(new Double[0]);
     Double[] y = request.getYList().toArray(new Double[0]);
-    LinearRegression classifier = classifierMap.get(classifierId);
+    de.dhbw.swe.runtime.adapters.LinearRegression classifier = classifierMap.get(classifierId);
     if(classifier == null) {
       classifier = new LinearRegression(classifierId, x, y);
       classifierMap.put(classifierId, classifier);
@@ -47,11 +46,7 @@ public class LinearRegressionService extends LinearRegressionServiceGrpc.LinearR
               .build();
       responseObserver.onNext(response);
       responseObserver.onCompleted();
-      repository.save(classifier);
-      Statistic statistic = statisticService.getCurrentStatistic();
-      statistic.adjustLinearClassifierOnline(1);
-      statistic.adjustLinearClassifierCreated(1);
-      statisticService.update(statistic);
+      regressionRepository.save(classifier);
       System.out.println("Classifier created. ClassifierId: " + classifierId);
       return;
     }
@@ -77,10 +72,7 @@ public class LinearRegressionService extends LinearRegressionServiceGrpc.LinearR
               .build();
       responseObserver.onNext(response);
       responseObserver.onCompleted();
-      repository.delete(classifier);
-      Statistic statistic = statisticService.getCurrentStatistic();
-      statistic.adjustLinearClassifierOnline(-1);
-      statisticService.update(statistic);
+      regressionRepository.delete(classifier);
       System.out.println("Classifier deleted. ClassifierId: " + classifierId);
       return;
     }

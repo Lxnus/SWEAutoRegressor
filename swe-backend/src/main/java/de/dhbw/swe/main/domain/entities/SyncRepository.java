@@ -1,4 +1,4 @@
-package de.dhbw.swe.main.database;
+package de.dhbw.swe.main.domain.entities;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

@@ -2,11 +2,11 @@ package de.dhbw.swe.runtime;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import de.dhbw.swe.main.database.Database;
-import de.dhbw.swe.main.statistic.Statistic;
-import de.dhbw.swe.main.grpc.GrpcService;
+import de.dhbw.swe.main.application.Database;
+import de.dhbw.swe.main.application.GrpcServer;
+import de.dhbw.swe.main.domain.valueObjects.services.LinearRegressionGrpcService;
+import de.dhbw.swe.runtime.adapters.LinearRegression;
 import de.dhbw.swe.runtime.inject.AutoBindingModule;
-import de.dhbw.swe.runtime.ml.LinearRegression;
 
 public class ServiceStart {
 
@@ -14,9 +14,13 @@ public class ServiceStart {
     Injector injector = Guice.createInjector(new AutoBindingModule("de.dhbw.swe"));
 
     Database database = injector.getInstance(Database.class);
-    database.init(Statistic.class, LinearRegression.class);
+    database.init(LinearRegression.class);
 
-    GrpcService grpcService = injector.getInstance(GrpcService.class);
-    grpcService.startService();
+    GrpcServer grpcServer = injector.getInstance(GrpcServer.class);
+
+    // Bind services to server
+    grpcServer.bindService(injector.getInstance(LinearRegressionGrpcService.class));
+
+    grpcServer.start();
   }
 }

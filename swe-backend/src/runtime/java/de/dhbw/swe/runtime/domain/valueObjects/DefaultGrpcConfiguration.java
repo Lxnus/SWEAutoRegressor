@@ -1,7 +1,7 @@
-package de.dhbw.swe.runtime.grpc;
+package de.dhbw.swe.runtime.domain.valueObjects;
 
 import com.google.inject.Inject;
-import de.dhbw.swe.main.grpc.GrpcConfiguration;
+import de.dhbw.swe.main.domain.valueObjects.configuration.GrpcConfiguration;
 import de.dhbw.swe.runtime.inject.AutoBind;
 
 import java.io.File;
@@ -32,7 +32,11 @@ public class DefaultGrpcConfiguration implements GrpcConfiguration {
 
     @Override
     public int getPort() {
-        String port = this.properties.getProperty("grpc.port");
-        return Integer.parseInt(port);
+        return Integer.parseInt(this.properties.getProperty("grpc.port"));
+    }
+
+    @Override
+    public String getProperty(String propertyKey) {
+        return this.properties.getProperty(propertyKey);
     }
 }

@@ -1,8 +1,8 @@
-package de.dhbw.swe.runtime.database;
+package de.dhbw.swe.runtime.domain.valueObjects;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import de.dhbw.swe.main.database.DatabaseConfiguration;
+import de.dhbw.swe.main.domain.valueObjects.configuration.DatabaseConfiguration;
 import de.dhbw.swe.runtime.inject.AutoBind;
 
 import java.io.File;
@@ -29,21 +29,26 @@ public class DefaultDatabaseConfiguration implements DatabaseConfiguration {
 
     @Override
     public String getDatabaseUser() {
-        return this.properties.getProperty("database.user");
+        return this.getProperty("database.user");
     }
 
     @Override
     public String getDatabasePassword() {
-        return this.properties.getProperty("database.password");
+        return this.getProperty("database.password");
     }
 
     @Override
     public String getDatabaseUrl() {
-        return this.properties.getProperty("database.url");
+        return this.getProperty("database.url");
     }
 
     @Override
     public String getDatabaseDriver() {
-        return this.properties.getProperty("database.driver");
+        return this.getProperty("database.driver");
+    }
+
+    @Override
+    public String getProperty(String propertyKey) {
+        return this.properties.getProperty(propertyKey);
     }
 }
