@@ -25,11 +25,15 @@ public class GrpcConfigurationTest {
 
     @Test
     public void testGrpcPort() {
-        Assert.assertEquals(configuration.getPort(), 8080);
+        long configurationPort = configuration.getPort();
+
+        Assert.assertEquals(configurationPort, 8080);
     }
 
     @Test
     public void testGrpcHost() {
-        Assert.assertEquals(configuration.getHostname(), "localhost");
+        String configurationHostname = configuration.getHostname();
+
+        Assert.assertEquals(configurationHostname, "localhost");
     }
 }
