@@ -5,6 +5,7 @@ import de.dhbw.swe.main.domain.valueObjects.services.LinearRegressionGrpcService
 import de.dhbw.swe.runtime.adapters.LinearRegression;
 import de.dhbw.swe.runtime.inject.AutoBind;
 import de.dhbw.swe.runtime.ml.regression.*;
+import io.grpc.binarylog.v1.Message;
 import io.grpc.stub.StreamObserver;
 import org.hibernate.SessionFactory;
 
@@ -48,8 +49,7 @@ public class DefaultLinearRegressionGrpcService extends LinearRegressionServiceG
               .setMessage("Ok")
               .setSuccess(true)
               .build();
-      responseObserver.onNext(response);
-      responseObserver.onCompleted();
+      this.sendResponse(responseObserver, response);
       regressionRepository.save(classifier);
       System.out.println("Classifier created. ClassifierId: " + classifierId);
       return;
@@ -59,8 +59,7 @@ public class DefaultLinearRegressionGrpcService extends LinearRegressionServiceG
             .setMessage("Classifier already exist. Delete the classifier or use another classifierId.")
             .setSuccess(false)
             .build();
-    responseObserver.onNext(response);
-    responseObserver.onCompleted();
+    this.sendResponse(responseObserver, response);
   }
 
   @Override
@@ -74,8 +73,7 @@ public class DefaultLinearRegressionGrpcService extends LinearRegressionServiceG
               .setMessage("Ok")
               .setSuccess(true)
               .build();
-      responseObserver.onNext(response);
-      responseObserver.onCompleted();
+      this.sendResponse(responseObserver, response);
       regressionRepository.delete(classifier);
       System.out.println("Classifier deleted. ClassifierId: " + classifierId);
       return;
@@ -85,8 +83,7 @@ public class DefaultLinearRegressionGrpcService extends LinearRegressionServiceG
             .setMessage("Cannot delete classifier. Maybe the classier does not exist!")
             .setSuccess(false)
             .build();
-    responseObserver.onNext(response);
-    responseObserver.onCompleted();
+    this.sendResponse(responseObserver, response);
   }
 
   @Override
@@ -101,8 +98,7 @@ public class DefaultLinearRegressionGrpcService extends LinearRegressionServiceG
               .setMessage("Ok")
               .setSuccess(true)
               .build();
-      responseObserver.onNext(response);
-      responseObserver.onCompleted();
+      this.sendResponse(responseObserver, response);
       return;
     }
     ErrorLCResponse response = ErrorLCResponse.newBuilder()
@@ -110,8 +106,7 @@ public class DefaultLinearRegressionGrpcService extends LinearRegressionServiceG
             .setMessage("Cannot get error of classifier. Maybe the classier does not exist!")
             .setSuccess(false)
             .build();
-    responseObserver.onNext(response);
-    responseObserver.onCompleted();
+    this.sendResponse(responseObserver, response);
   }
 
   @Override
@@ -128,8 +123,7 @@ public class DefaultLinearRegressionGrpcService extends LinearRegressionServiceG
               .setMessage("Ok")
               .setSuccess(true)
               .build();
-      responseObserver.onNext(response);
-      responseObserver.onCompleted();
+      this.sendResponse(responseObserver, response);
       return;
     }
     PredictLCResponse response = PredictLCResponse.newBuilder()
@@ -138,6 +132,10 @@ public class DefaultLinearRegressionGrpcService extends LinearRegressionServiceG
             .setMessage("Cannot get prediction of classifier. Maybe the classier does not exist!")
             .setSuccess(false)
             .build();
+    this.sendResponse(responseObserver, response);
+  }
+
+  private <T extends com.google.protobuf.GeneratedMessageV3> void sendResponse(StreamObserver<T> responseObserver, T response) {
     responseObserver.onNext(response);
     responseObserver.onCompleted();
   }

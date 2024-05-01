@@ -69,7 +69,7 @@ sourceSets {
         dependencies {
             implementation("org.reflections:reflections:0.10.2")
             testImplementation("org.junit.jupiter", "junit-jupiter-engine", "5.7.1")
-            testImplementation("org.mockito", "mockito-junit-jupiter", "3.9.0")
+            testImplementation("org.easymock", "easymock", "4.2")
         }
     }
 }
