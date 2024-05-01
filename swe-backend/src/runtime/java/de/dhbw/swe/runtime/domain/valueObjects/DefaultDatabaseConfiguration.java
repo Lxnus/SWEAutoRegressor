@@ -2,7 +2,7 @@ package de.dhbw.swe.runtime.domain.valueObjects;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import de.dhbw.swe.main.domain.valueObjects.configuration.DatabaseConfiguration;
+import de.dhbw.swe.main.domain.valueObjects.DatabaseConfiguration;
 import de.dhbw.swe.runtime.inject.AutoBind;
 
 import java.io.File;

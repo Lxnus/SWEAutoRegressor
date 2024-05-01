@@ -1,4 +1,4 @@
-package de.dhbw.swe.main.domain.valueObjects.configuration;
+package de.dhbw.swe.main.domain.valueObjects;
 
 import de.dhbw.swe.main.domain.entities.Configuration;
 

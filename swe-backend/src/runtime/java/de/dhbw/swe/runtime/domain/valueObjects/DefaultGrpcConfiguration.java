@@ -1,7 +1,7 @@
 package de.dhbw.swe.runtime.domain.valueObjects;
 
 import com.google.inject.Inject;
-import de.dhbw.swe.main.domain.valueObjects.configuration.GrpcConfiguration;
+import de.dhbw.swe.main.domain.valueObjects.GrpcConfiguration;
 import de.dhbw.swe.runtime.inject.AutoBind;
 
 import java.io.File;

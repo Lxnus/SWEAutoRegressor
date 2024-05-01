@@ -4,7 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import de.dhbw.swe.main.application.Database;
 import de.dhbw.swe.main.application.GrpcServer;
-import de.dhbw.swe.main.domain.valueObjects.services.LinearRegressionGrpcService;
+import de.dhbw.swe.main.domain.services.LinearRegressionGrpcService;
 import de.dhbw.swe.runtime.adapters.LinearRegression;
 import de.dhbw.swe.runtime.inject.AutoBindingModule;
 

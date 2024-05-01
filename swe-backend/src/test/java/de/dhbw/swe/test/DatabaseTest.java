@@ -3,7 +3,7 @@ package de.dhbw.swe.test;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import de.dhbw.swe.main.application.Database;
-import de.dhbw.swe.main.domain.valueObjects.configuration.DatabaseConfiguration;
+import de.dhbw.swe.main.domain.valueObjects.DatabaseConfiguration;
 import de.dhbw.swe.runtime.application.DefaultDatabase;
 import de.dhbw.swe.runtime.inject.AutoBindingModule;
 import org.easymock.EasyMock;

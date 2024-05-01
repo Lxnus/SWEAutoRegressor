@@ -1,11 +1,9 @@
 package de.dhbw.swe.runtime.application;
 
 import com.google.inject.Singleton;
-import com.google.inject.assistedinject.Assisted;
-import de.dhbw.swe.main.application.Database;
 import de.dhbw.swe.main.application.GrpcServer;
 import de.dhbw.swe.main.domain.entities.GrpcService;
-import de.dhbw.swe.main.domain.valueObjects.configuration.GrpcConfiguration;
+import de.dhbw.swe.main.domain.valueObjects.GrpcConfiguration;
 import de.dhbw.swe.runtime.inject.AutoBind;
 import io.grpc.BindableService;
 import io.grpc.Server;

@@ -1,11 +1,10 @@
-package de.dhbw.swe.runtime.domain.valueObjects;
+package de.dhbw.swe.runtime.domain.services;
 
 import de.dhbw.swe.main.domain.entities.SyncRepository;
-import de.dhbw.swe.main.domain.valueObjects.services.LinearRegressionGrpcService;
+import de.dhbw.swe.main.domain.services.LinearRegressionGrpcService;
 import de.dhbw.swe.runtime.adapters.LinearRegression;
 import de.dhbw.swe.runtime.inject.AutoBind;
 import de.dhbw.swe.runtime.ml.regression.*;
-import io.grpc.binarylog.v1.Message;
 import io.grpc.stub.StreamObserver;
 import org.hibernate.SessionFactory;
 

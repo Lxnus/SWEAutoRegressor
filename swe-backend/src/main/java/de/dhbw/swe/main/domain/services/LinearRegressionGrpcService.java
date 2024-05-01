@@ -1,4 +1,4 @@
-package de.dhbw.swe.main.domain.valueObjects.services;
+package de.dhbw.swe.main.domain.services;
 
 import de.dhbw.swe.main.domain.entities.GrpcService;
 

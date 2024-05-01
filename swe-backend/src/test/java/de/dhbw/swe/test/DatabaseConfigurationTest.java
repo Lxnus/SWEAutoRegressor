@@ -2,7 +2,7 @@ package de.dhbw.swe.test;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import de.dhbw.swe.main.domain.valueObjects.configuration.DatabaseConfiguration;
+import de.dhbw.swe.main.domain.valueObjects.DatabaseConfiguration;
 import de.dhbw.swe.runtime.inject.AutoBindingModule;
 import org.junit.Assert;
 import org.junit.Before;
