@@ -12,7 +12,7 @@ import java.util.Properties;
 
 @Singleton
 @AutoBind(DatabaseConfiguration.class)
-public class DefaultDatabaseConfiguration implements DatabaseConfiguration {
+public final class DefaultDatabaseConfiguration implements DatabaseConfiguration {
 
     private final Properties properties;
 

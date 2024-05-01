@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 @AutoBind(GrpcConfiguration.class)
-public class DefaultGrpcConfiguration implements GrpcConfiguration {
+public final class DefaultGrpcConfiguration implements GrpcConfiguration {
 
     private final Properties properties;
 
